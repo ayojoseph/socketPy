@@ -1,7 +1,6 @@
 import socket
-from inputs import devices
-from .. import xinput.py as xcontrol
-
+# from inputs import devices
+import xinput
 
 def create_socket():
     try:

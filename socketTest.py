@@ -1,6 +1,102 @@
 import socket
 # from inputs import devices
-import xinput
+# import xinput
+
+
+def move_home():
+    cmd = bytearray()
+    cmd.append(0x81)
+    cmd.append(0x01)
+    cmd.append(0x06)
+    cmd.append(0x04)
+    cmd.append(0xff)
+    return cmd
+
+def move_down(pan,tilt):
+    cmd = bytearray()
+    #move down command
+    cmd.append(0x81)
+    cmd.append(0x01)
+    cmd.append(0x06)
+    cmd.append(0x01)
+    #pan speed
+    cmd.append(0x01)
+    #tilt speed
+    cmd.append(0x14)
+
+    cmd.append(0x03)
+    cmd.append(0x02)
+    cmd.append(0xff)
+    return cmd
+
+def move_up(pan,tilt):
+    cmd = bytearray()
+    #move up command
+    cmd.append(0x81)
+    cmd.append(0x01)
+    cmd.append(0x06)
+    cmd.append(0x01)
+    #pan speed
+    cmd.append(0x01)
+    #tilt speed
+    cmd.append(0x14)
+
+    cmd.append(0x03)
+    cmd.append(0x01)
+    cmd.append(0xff)
+    return cmd
+
+
+def move_left(pan,tilt):
+    cmd = bytearray()
+    #move left command
+    cmd.append(0x81)
+    cmd.append(0x01)
+    cmd.append(0x06)
+    cmd.append(0x01)
+    #pan speed
+    cmd.append(0x01)
+    #tilt speed
+    cmd.append(0x01)
+
+    cmd.append(0x01)
+    cmd.append(0x03)
+    cmd.append(0xff)
+    return cmd
+
+def move_right(pan,tilt):
+    cmd = bytearray()
+    #move right command
+    cmd.append(0x81)
+    cmd.append(0x01)
+    cmd.append(0x06)
+    cmd.append(0x01)
+    #pan speed
+    cmd.append(0x01)
+    #tilt speed
+    cmd.append(0x14)
+
+    cmd.append(0x02)
+    cmd.append(0x03)
+    cmd.append(0xff)
+    return cmd
+
+def move_stop(pan,tilt):
+    cmd = bytearray()
+    #move stop command
+    cmd.append(0x81)
+    cmd.append(0x01)
+    cmd.append(0x06)
+    cmd.append(0x01)
+    #pan speed
+    cmd.append(0x01)
+    #tilt speed
+    cmd.append(0x01)
+
+    cmd.append(0x03)
+    cmd.append(0x03)
+    cmd.append(0xff)
+    return cmd
 
 def create_socket():
     try:
@@ -40,31 +136,19 @@ def send_command(cmd):
 
 create_socket()
 connect_socket()
-command = bytearray()
+command = move_home()
 
-send_command(command)
+# send_command(command)
 # command = bytearray()
-#move down command
-command.append(0x81)
-command.append(0x01)
-command.append(0x06)
-command.append(0x01)
-command.append(0x01)
-command.append(0x14)
-command.append(0x03)
-command.append(0x02)
-command.append(0xff)
+
 
 send_command(command)
-command2 = bytearray()
+command2 = move_down()
 # print(command)
 
 
 #Move Home
-command.append(0x81)
-command.append(0x01)
-command.append(0x06)
-command.append(0x04)
-command.append(0xff)
+
 # connect_socket()
 send_command(command2)
+

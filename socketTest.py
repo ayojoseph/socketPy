@@ -12,7 +12,7 @@ def move_home():
     cmd.append(0xff)
     return cmd
 
-def move_down(pan,tilt):
+def move_down(tilt):
     cmd = bytearray()
     #move down command
     cmd.append(0x81)
@@ -27,9 +27,11 @@ def move_down(pan,tilt):
     cmd.append(0x03)
     cmd.append(0x02)
     cmd.append(0xff)
-    return cmd
 
-def move_up(pan,tilt):
+    send_command(cmd)
+    # return cmd
+
+def move_up(tilt):
     cmd = bytearray()
     #move up command
     cmd.append(0x81)
@@ -44,10 +46,12 @@ def move_up(pan,tilt):
     cmd.append(0x03)
     cmd.append(0x01)
     cmd.append(0xff)
-    return cmd
+
+    send_command(cmd)
+    # return cmd
 
 
-def move_left(pan,tilt):
+def move_left(pan):
     cmd = bytearray()
     #move left command
     cmd.append(0x81)
@@ -55,16 +59,18 @@ def move_left(pan,tilt):
     cmd.append(0x06)
     cmd.append(0x01)
     #pan speed
-    cmd.append(0x01)
+    cmd.append(0x14)
     #tilt speed
     cmd.append(0x01)
 
     cmd.append(0x01)
     cmd.append(0x03)
     cmd.append(0xff)
-    return cmd
+    
+    send_command(cmd)
+    # return cmd
 
-def move_right(pan,tilt):
+def move_right(pan):
     cmd = bytearray()
     #move right command
     cmd.append(0x81)
@@ -72,16 +78,18 @@ def move_right(pan,tilt):
     cmd.append(0x06)
     cmd.append(0x01)
     #pan speed
-    cmd.append(0x01)
+    cmd.append(0x14)
     #tilt speed
     cmd.append(0x14)
 
     cmd.append(0x02)
     cmd.append(0x03)
     cmd.append(0xff)
-    return cmd
 
-def move_stop(pan,tilt):
+    send_command(cmd)
+    # return cmd
+
+def move_stop():
     cmd = bytearray()
     #move stop command
     cmd.append(0x81)
@@ -96,16 +104,18 @@ def move_stop(pan,tilt):
     cmd.append(0x03)
     cmd.append(0x03)
     cmd.append(0xff)
-    return cmd
 
-def create_socket():
+    send_command(cmd)
+    # return cmd
+
+def create_socket(camip):
     try:
         global s
         global host
         global port
 
         s = socket.socket()
-        host = '192.168.2.243'
+        host = camip
         port = 5678
     except socket.error as msg:
         print("Socket Creation Error: "+str(msg))
@@ -126,29 +136,29 @@ def connect_socket():
 
 def send_command(cmd):
     try:
-        print("Sending cmd...")
+        # print("Sending cmd...")
         s.send(cmd)
-        print("Command Sent!")
+        # print("Command Sent!")
         # s.close()
     except socket.error as msg:
         print("Send command Error: "+str(msg))
 
 
-create_socket()
-connect_socket()
-command = move_home()
+# create_socket()
+# connect_socket()
+# command = move_home()
 
 # send_command(command)
 # command = bytearray()
 
 
-send_command(command)
-command2 = move_down()
+# send_command(command)
+# command2 = move_down(0,0)
 # print(command)
 
 
 #Move Home
 
 # connect_socket()
-send_command(command2)
+# send_command(command2)
 

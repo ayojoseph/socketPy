@@ -89,6 +89,46 @@ def move_right(pan):
     send_command(cmd)
     # return cmd
 
+def zoom_in(pan):
+    cmd = bytearray()
+    #Zoom in
+    cmd.append(0x81)
+    cmd.append(0x01)
+    cmd.append(0x04)
+    cmd.append(0x07)
+    cmd.append(0x02)
+    cmd.append(0xff)
+
+    send_command(cmd)
+    # return cmd
+
+
+def zoom_out(pan):
+    cmd = bytearray()
+    #Zoom out
+    cmd.append(0x81)
+    cmd.append(0x01)
+    cmd.append(0x04)
+    cmd.append(0x07)
+    cmd.append(0x03)
+    cmd.append(0xff)
+
+    send_command(cmd)
+    # return cmd
+
+def zoom_stop():
+    cmd = bytearray()
+    #Zoom out
+    cmd.append(0x81)
+    cmd.append(0x01)
+    cmd.append(0x04)
+    cmd.append(0x07)
+    cmd.append(0x00)
+    cmd.append(0xff)
+
+    send_command(cmd)
+    # return cmd
+
 def move_stop():
     cmd = bytearray()
     #move stop command

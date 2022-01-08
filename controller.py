@@ -69,6 +69,14 @@ def on_button(button, pressed):
         move_right(0)
     elif (button == 4 and not pressed):
         move_stop()
+    elif (button == 16 and pressed):     #Zoom In
+        zoom_in(0)
+    elif (button == 16 and not pressed):
+        zoom_stop()
+    elif (button == 13 and pressed):     #Zoom Out
+        zoom_out(0)
+    elif (button == 13 and not pressed):
+        zoom_stop()
 
 left_speed = 0
 right_speed = 0

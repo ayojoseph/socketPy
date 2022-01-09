@@ -1,6 +1,8 @@
 # socketTest.py>
+# atem.py>
 
 from socketTest import *
+from atem import *
 import xinput
 from operator import itemgetter, attrgetter
 import ctypes
@@ -11,6 +13,7 @@ from itertools import count, starmap
 from pyglet import event
 
 camera_IP = '192.168.1.246'
+switcher_IP = '192.168.1.215'
 """
 Grab 1st available gamepad, logging changes to the screen.
 L & R analogue triggers set the vibration motor speed.
@@ -42,9 +45,10 @@ print('using %d' % j.device_number)
 battery = j.get_battery_information()
 print(battery)
 
-#connecting to camera
+#connecting to camera and switcher
 create_socket(camera_IP)
 connect_socket()
+connect_switcher(switcher_IP)
 
 @j.event
 def on_button(button, pressed):
@@ -54,7 +58,7 @@ def on_button(button, pressed):
     elif (button == 10 and pressed):    #Change Camera
         select_camera(2)
     elif (button == 2 and pressed):     #Move down
-        move_down(0)
+        move_down(7)
     elif (button == 2 and not pressed):
         move_stop()
     elif (button == 1 and pressed):     #Move up
@@ -77,6 +81,12 @@ def on_button(button, pressed):
         zoom_out(0)
     elif (button == 13 and not pressed):
         zoom_stop()
+    elif (button == 7 and pressed):     #Cut Transition
+        cut_transition()
+    elif (button == 8 and pressed):     #Auto Transition
+        auto_transition()
+    elif (button == 5 and pressed):     #Speed change
+        auto_transition()
 
 left_speed = 0
 right_speed = 0

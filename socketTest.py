@@ -14,6 +14,8 @@ def move_home():
 
 def move_down(tilt):
     cmd = bytearray()
+    # print(tilt.to_bytes(2,'little'))
+    # speed = '0x'+tilt
     #move down command
     cmd.append(0x81)
     cmd.append(0x01)
@@ -22,12 +24,13 @@ def move_down(tilt):
     #pan speed
     cmd.append(0x01)
     #tilt speed
-    cmd.append(0x14)
+    cmd.append(0x04)
+    
 
     cmd.append(0x03)
     cmd.append(0x02)
     cmd.append(0xff)
-
+    # print(cmd)
     send_command(cmd)
     # return cmd
 
@@ -41,7 +44,7 @@ def move_up(tilt):
     #pan speed
     cmd.append(0x01)
     #tilt speed
-    cmd.append(0x14)
+    cmd.append(0x04)
 
     cmd.append(0x03)
     cmd.append(0x01)
@@ -59,7 +62,7 @@ def move_left(pan):
     cmd.append(0x06)
     cmd.append(0x01)
     #pan speed
-    cmd.append(0x14)
+    cmd.append(0x04)
     #tilt speed
     cmd.append(0x01)
 
@@ -78,7 +81,7 @@ def move_right(pan):
     cmd.append(0x06)
     cmd.append(0x01)
     #pan speed
-    cmd.append(0x14)
+    cmd.append(0x04)
     #tilt speed
     cmd.append(0x14)
 

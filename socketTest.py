@@ -1,6 +1,7 @@
 import socket
-# from inputs import devices
+# from input import devices
 # import xinput
+speed_default = 0x02
 
 
 def move_home():
@@ -12,7 +13,7 @@ def move_home():
     cmd.append(0xff)
     return cmd
 
-def move_down(tilt):
+def move_down(speed):
     cmd = bytearray()
     # print(tilt.to_bytes(2,'little'))
     # speed = '0x'+tilt
@@ -24,7 +25,7 @@ def move_down(tilt):
     #pan speed
     cmd.append(0x01)
     #tilt speed
-    cmd.append(0x04)
+    cmd.append(speed)
     
 
     cmd.append(0x03)
@@ -34,7 +35,7 @@ def move_down(tilt):
     send_command(cmd)
     # return cmd
 
-def move_up(tilt):
+def move_up(speed):
     cmd = bytearray()
     #move up command
     cmd.append(0x81)
@@ -44,7 +45,7 @@ def move_up(tilt):
     #pan speed
     cmd.append(0x01)
     #tilt speed
-    cmd.append(0x04)
+    cmd.append(speed)
 
     cmd.append(0x03)
     cmd.append(0x01)
@@ -54,7 +55,7 @@ def move_up(tilt):
     # return cmd
 
 
-def move_left(pan):
+def move_left(speed):
     cmd = bytearray()
     #move left command
     cmd.append(0x81)
@@ -62,7 +63,7 @@ def move_left(pan):
     cmd.append(0x06)
     cmd.append(0x01)
     #pan speed
-    cmd.append(0x04)
+    cmd.append(speed)
     #tilt speed
     cmd.append(0x01)
 
@@ -73,7 +74,7 @@ def move_left(pan):
     send_command(cmd)
     # return cmd
 
-def move_right(pan):
+def move_right(speed):
     cmd = bytearray()
     #move right command
     cmd.append(0x81)
@@ -81,7 +82,7 @@ def move_right(pan):
     cmd.append(0x06)
     cmd.append(0x01)
     #pan speed
-    cmd.append(0x04)
+    cmd.append(speed)
     #tilt speed
     cmd.append(0x14)
 
@@ -92,7 +93,7 @@ def move_right(pan):
     send_command(cmd)
     # return cmd
 
-def zoom_in(pan):
+def zoom_in(speed):
     cmd = bytearray()
     #Zoom in
     cmd.append(0x81)
@@ -106,7 +107,7 @@ def zoom_in(pan):
     # return cmd
 
 
-def zoom_out(pan):
+def zoom_out(speed):
     cmd = bytearray()
     #Zoom out
     cmd.append(0x81)
@@ -122,6 +123,42 @@ def zoom_out(pan):
 def zoom_stop():
     cmd = bytearray()
     #Zoom out
+    cmd.append(0x81)
+    cmd.append(0x01)
+    cmd.append(0x04)
+    cmd.append(0x07)
+    cmd.append(0x00)
+    cmd.append(0xff)
+
+    send_command(cmd)
+    # return cmd
+
+def focus_near():
+    cmd = bytearray()
+    cmd.append(0x81)
+    cmd.append(0x01)
+    cmd.append(0x04)
+    cmd.append(0x08)
+    cmd.append(0x03)
+    cmd.append(0xff)
+
+    send_command(cmd)
+    # return cmd
+
+def focus_far():
+    cmd = bytearray()
+    cmd.append(0x81)
+    cmd.append(0x01)
+    cmd.append(0x04)
+    cmd.append(0x08)
+    cmd.append(0x02)
+    cmd.append(0xff)
+
+    send_command(cmd)
+    # return cmd
+
+def focus_stop():
+    cmd = bytearray()
     cmd.append(0x81)
     cmd.append(0x01)
     cmd.append(0x04)
@@ -204,4 +241,3 @@ def send_command(cmd):
 
 # connect_socket()
 # send_command(command2)
-

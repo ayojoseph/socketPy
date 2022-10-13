@@ -14,6 +14,10 @@ def cut_transition():
 
 def auto_transition():
     switcher.execAutoME(0)
+
+def downstream_transition():
+    # switcher.execDownstreamKeyerAutoKeyer('dsk1')
+    switcher.execDownstreamKeyerAutoKeyer('dsk2')
     
 
 # cut_transition()
@@ -30,13 +34,12 @@ def connect_switcher(addr):
 
 def disconnect_switcher():
     try:
-        print('Connecting to Atem Switcher...')
+        print('Disconnecting to Atem Switcher...')
         switcher.disconnect()
-        # switcher.waitForConnection()
-        print('Connection Success')
+        print('Success')
     except switcher.error as msg:
-        print("Connection to Atem Issue")
+        print("Disconnection Issue")
 
 # connect_switcher('192.168.1.215')
-# cut_transition()
+# downstream_transition()
 # disconnect_switcher()

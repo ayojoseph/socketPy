@@ -18,6 +18,9 @@ def auto_transition():
 def downstream_transition():
     # switcher.execDownstreamKeyerAutoKeyer('dsk1')
     switcher.execDownstreamKeyerAutoKeyer('dsk2')
+
+def setPreview(val):
+    switcher.setPreviewInputVideoSource(0,val)
     
 
 # cut_transition()

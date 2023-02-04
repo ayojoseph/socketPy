@@ -15,9 +15,13 @@ from pyglet import event
 
 camera_IP = '192.168.1.246'
 switcher_IP = '192.168.1.215'
-speed_str = "0x02"
+speed_arr = ["0x02","0x05","0x08"]
+speed_str = speed_arr[0]
 speed = int(speed_str, 16)
 sp = 0x02
+sp_num = 0
+preview_arr = [2,3,4]
+preview_num = 0
 # print(type(int(speed_str,16)))
 print("HUH: ",int(speed_str,16))
 # print(type(sp))
@@ -25,6 +29,19 @@ print("HUH: ",int(speed_str,16))
 Grab 1st available gamepad, logging changes to the screen.
 L & R analogue triggers set the vibration motor speed.
 """
+def change_speed():
+    global sp_num
+    sp_num += 1
+    speed_str = speed_arr[sp_num % 3]
+    global speed
+    speed = int(speed_str, 16)
+    print("SPEED: ",speed)
+
+def change_preview():
+    global preview_num
+    preview_num += 1
+    setPreview(preview_arr[preview_num % 3])
+
 def select_camera(camNum):
     if camNum == 1:
         print("Camera: ",camNum," Selected!")
@@ -60,9 +77,9 @@ connect_switcher(switcher_IP)
 @j.event
 def on_button(button, pressed):
     print('button', button, pressed)
-    if (button == 15 and pressed):  #Change Camera
+    if (button == 9 and pressed):  #Change Camera
         select_camera(1)
-    elif (button == 14 and pressed):    #Change Camera
+    elif (button == 10 and pressed):    #Change Camera
         select_camera(2)
     elif (button == 2 and pressed):     #Move down
         move_down(speed)
@@ -88,22 +105,25 @@ def on_button(button, pressed):
         zoom_out(0)
     elif (button == 13 and not pressed):
         zoom_stop()
-    elif (button == 15 and pressed):     #Focus Near
-        focus_near(0)
+    # elif (button == 15 and pressed):     #Focus Near
+        # focus_near(0)
     elif (button == 15 and not pressed):
-        focus_stop()
+        # focus_stop()
+        select_camera(1)
     elif (button == 14 and pressed):     #Focus Far
-        focus_far()
-    elif (button == 14 and not pressed):
-        focus_stop()
+        # focus_far()
+        select_camera(2)
     elif (button == 7 and pressed):     #Cut Transition
         cut_transition()
     elif (button == 8 and pressed):     #Auto Transition
         auto_transition()
     elif (button == 5 and pressed):     #Speed change
-        auto_transition()
+        # auto_transition()
+        change_preview()
     elif (button == 6 and pressed):     #Downstream change
-        downstream_transition()
+        # downstream_transition()
+        # setPreview(1)
+        change_speed()
     elif (button == 10 and pressed):     #Speed change
         focus_near()
     elif (button == 9 and pressed):     #Downstream change
@@ -123,12 +143,12 @@ def on_axis(axis, value):
         left_speed = "0x" + str(round(value,1))
         new_left_sp = left_speed.replace('.','')
         # print("Left: ",new_left_sp)
-        move_down(int(new_left_sp,16))
+        # move_down(int(new_left_sp,16))
     elif axis == "right_trigger":
         right_speed = "0x" + str(round(value,1))
         new_right_sp = right_speed.replace('.','')
         # print("Left: ",new_right_sp)
-        move_up(int(new_right_sp,16))
+        # move_up(int(new_right_sp,16))
     elif axis == "l_thumb_x":
         pan_speed = "0x" + str(round(abs(value),1))
         pan_speed = pan_speed.replace('.','')
